@@ -56,7 +56,7 @@
 
         // slider elements
         var $wrapper        = this,
-            $slider         = $wrapper.find('ul.bjqs'),
+            $slider         = $wrapper.find('ul.b-slides'),
             $slides         = $slider.children('li'),
 
             // control elements
@@ -101,7 +101,7 @@
         var init = function() {
 
             // differentiate slider li from content li
-            $slides.addClass('bjqs-slide');
+            $slides.addClass('b-slides__slide-item');
 
             // conf dimensions, responsive or static
             if( settings.responsive ){
@@ -365,7 +365,7 @@
             state.slidecount    = $slides.length;
 
             // create a 'canvas' element which is neccessary for the slide animation to work
-            $canvas = $('<div class="bjqs-wrapper"></div>');
+            $canvas = $('<div class="b-slides__wrapper"></div>');
 
             // if the slider is responsive && the calculated width is less than the max width
             if(settings.responsive && (responsive.width < settings.width)){
@@ -417,9 +417,9 @@
         var conf_controls = function() {
 
             // create the elements for the controls
-            $c_wrapper  = $('<ul class="bjqs-controls"></ul>');
-            $c_fwd      = $('<li class="bjqs-next"><a href="#" data-direction="'+ vars.fwd +'">' + settings.nexttext + '</a></li>');
-            $c_prev     = $('<li class="bjqs-prev"><a href="#" data-direction="'+ vars.prev +'">' + settings.prevtext + '</a></li>');
+            $c_wrapper  = $('<ul class="b-slides-controls"></ul>');
+            $c_fwd      = $('<li class="b-slides-controls__item b-slides-controls__next"><a class="b-slides-controls__link" href="#" data-direction="'+ vars.fwd +'">' + settings.nexttext + '</a></li>');
+            $c_prev     = $('<li class="b-slides-controls__item b-slides-controls__prev"><a class="b-slides-controls__link" href="#" data-direction="'+ vars.prev +'">' + settings.prevtext + '</a></li>');
 
             // bind click events
             $c_wrapper.on('click','a',function(e){
@@ -449,7 +449,7 @@
             // vertically center the controls
             if (settings.centercontrols) {
 
-                $c_wrapper.addClass('v-centered');
+                $c_wrapper.addClass('b-slides-controls_v-centered');
 
                 // calculate offset % for vertical positioning
                 var offset_px   = ($wrapper.height() - $c_fwd.children('a').outerHeight()) / 2,
@@ -466,7 +466,7 @@
         var conf_markers = function() {
 
             // create a wrapper for our markers
-            $m_wrapper = $('<ol class="bjqs-markers"></ol>');
+            $m_wrapper = $('<ol class="b-slides-markers"></ol>');
 
             // for every slide, create a marker
             $.each($slides, function(key, slide){
@@ -479,10 +479,10 @@
                     gotoslide = key + 2;
                 }
 
-                var marker = $('<li><a href="#">'+ slidenum +'</a></li>');
+                var marker = $('<li class="b-slides-markers__item"><a class="b-slides-markers__link" href="#">'+ slidenum +'</a></li>');
 
                 // set the first marker to be active
-                if(slidenum === state.currentslide){ marker.addClass('active-marker'); }
+                if(slidenum === state.currentslide){ marker.addClass('b-slides-markers_active'); }
 
                 // bind the click event
                 marker.on('click','a',function(e){
@@ -502,7 +502,7 @@
 
             // center the markers
             if (settings.centermarkers) {
-                $m_wrapper.addClass('h-centered');
+                $m_wrapper.addClass('b-slides-markers_h-centered');
                 var offset = (settings.width - $m_wrapper.width()) / 2;
                 $m_wrapper.css('left', offset);
             }
@@ -569,7 +569,7 @@
                 }
 
                 if (caption) {
-                    caption = $('<p class="bjqs-caption">' + caption + '</p>');
+                    caption = $('<p class="b-slides-caption">' + caption + '</p>');
                     caption.appendTo($(slide));
                 }
 
@@ -634,8 +634,8 @@
                 if(settings.animtype === 'fade'){
 
                     if(settings.showmarkers){
-                        $m_markers.removeClass('active-marker');
-                        $m_markers.eq(state.nextindex).addClass('active-marker');
+                        $m_markers.removeClass('b-slides-markers_active');
+                        $m_markers.eq(state.nextindex).addClass('b-slides-markers_active');
                     }
 
                     // fade out current
@@ -666,8 +666,8 @@
                             markerindex = state.slidecount-3;
                         }
 
-                        $m_markers.removeClass('active-marker');
-                        $m_markers.eq(markerindex).addClass('active-marker');
+                        $m_markers.removeClass('b-slides-markers_active');
+                        $m_markers.eq(markerindex).addClass('b-slides-markers_active');
                     }
 
                     // if the slider is responsive && the calculated width is less than the max width
